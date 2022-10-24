@@ -20,7 +20,7 @@ class RepositoryViewModel: ObservableObject {
         }
         
         client.getCharacters(search: searchText)
-            .receive(on: DispatchQueue.main)
+            
             .sink { completion in
                 switch completion {
                 case .finished: break
@@ -28,8 +28,8 @@ class RepositoryViewModel: ObservableObject {
                     print(error)
                     self.error = error
                 }
-            } receiveValue: { [weak self] products in
-                self?.repositories = products.items
+            } receiveValue: { [weak self] repositories in
+                self?.repositories = repositories.items
             }
             .store(in: &cancelable)
     }

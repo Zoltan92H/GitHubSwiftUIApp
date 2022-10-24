@@ -18,7 +18,7 @@ final class GitHubSwiftUITests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
-        viewModel = nil
+        //viewModel = nil
     }
     
     func test_getRepositoriesData() throws {
@@ -27,7 +27,7 @@ final class GitHubSwiftUITests: XCTestCase {
         XCTAssertTrue(viewModel.repositories.isEmpty)
         
         // When getRepositories is called on MockAPIClient
-        viewModel.getRepositories(searchText: "")
+        viewModel.getRepositories(searchText: "a")
         
         //Then repositories should have 1 repository
         XCTAssertEqual(viewModel.repositories.count, 1)
