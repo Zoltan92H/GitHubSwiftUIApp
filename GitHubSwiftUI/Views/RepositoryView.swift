@@ -9,15 +9,27 @@ struct RepositoryView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack {
-                    List(viewModel.repositories, id: \.self) { repo in
-                        NavigationLink(destination:
-                                        WebView(url: repo.repositoryURL)
-                            .navigationBarTitle(Text(repo.fullName))
-                        ) {
-                            RepositoryCell(repoItem: repo)
-                        }
-                    }.navigationBarTitle(Text("Repositories"))
+                if let error = viewModel.error {
+                    Text("Failed fetching repositories with error \(error.localizedDescription)")
+                        .padding()
+                }
+                else {
+                    if searchText.isEmpty {
+                        Text("Enter a search term")
+                    }
+                    else if viewModel.repositories.isEmpty {
+                        Text("No repositories found")
+                    }
+                    else {
+                        List(viewModel.repositories, id: \.self) { repo in
+                            NavigationLink(destination:
+                                            WebView(url: repo.repositoryURL)
+                                .navigationBarTitle(Text(repo.fullName))
+                            ) {
+                                RepositoryCell(repoItem: repo)
+                            }
+                        }.navigationBarTitle(Text("Repositories"))
+                    }
                 }
             }
         }
