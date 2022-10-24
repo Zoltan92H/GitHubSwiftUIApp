@@ -10,15 +10,15 @@ struct RepositoryView: View {
         NavigationView {
             ZStack {
                 if let error = viewModel.error {
-                    Text("Failed fetching repositories with error \(error.localizedDescription)")
+                    Text("\(Localization.fetchErrorText) \(error.localizedDescription)")
                         .padding()
                 }
                 else {
                     if searchText.isEmpty {
-                        Text("Enter a search term")
+                        Text("\(Localization.enterSearchTermText)")
                     }
                     else if viewModel.repositories.isEmpty {
-                        Text("No repositories found")
+                        Text("\(Localization.noRepositoryFoundText)")
                     }
                     else {
                         List(viewModel.repositories, id: \.self) { repo in
@@ -28,12 +28,12 @@ struct RepositoryView: View {
                             ) {
                                 RepositoryCell(repoItem: repo)
                             }
-                        }.navigationBarTitle(Text("Repositories"))
+                        }.navigationBarTitle(Text("\(Localization.repositories)"))
                     }
                 }
             }
         }
-        .navigationTitle("Search Repositories")
+        .navigationTitle("\(Localization.searchRepositories)")
         .searchable(text: $searchText)
         .onChange(of: searchText, perform: viewModel.getRepositories(searchText:))
     }

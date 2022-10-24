@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  GitHubSwiftUI
+
+  Created by Zoltán Hidegkuti on 2022. 10. 24..
+  
+*/
+
+"fetchErrorText" = "Az adattárakat nem sikerült lekérdezni";
+"enterSearchTermText" = "Írjon be egy keresési kifejezést";
+"noRepositoryFoundText" = "Nem találtunk ilyen adattárat";
+"repositories" = "Adattárak";
+"searchRepositories" = "Adattárak keresése";

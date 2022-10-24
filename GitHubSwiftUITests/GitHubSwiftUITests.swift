@@ -18,7 +18,7 @@ final class GitHubSwiftUITests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
-        //viewModel = nil
+        viewModel = nil
     }
     
     func test_getRepositoriesData() throws {

@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  GitHubSwiftUI
+
+  Created by Zoltán Hidegkuti on 2022. 10. 24..
+  
+*/
+
+"fetchErrorText" = "Failed fetching repositories with error";
+"enterSearchTermText" = "Enter a search term";
+"noRepositoryFoundText" = "No repositories found";
+"repositories" = "Repositories";
+"searchRepositories" = "Search repositories";
