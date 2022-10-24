@@ -1,18 +1,10 @@
-
 import Foundation
 import Combine
 
 class RepositoryViewModel: ObservableObject {
     
     @Published var repositories: [RepositoryItem] = []
-    @Published var errorMessage: String? = nil
-    @Published var search: String = "" {
-        didSet {
-            if !search.isEmpty {
-                getRepositories(searchText: search)
-            }
-        }
-    }
+    @Published public var error: Error?
     
     var cancelable: Set<AnyCancellable> = []
     let client: APIClientProtocol
@@ -22,13 +14,23 @@ class RepositoryViewModel: ObservableObject {
     }
     
     func getRepositories(searchText: String) {
+        guard !searchText.isEmpty else {
+            repositories = []
+            return
+        }
+        
         client.getCharacters(search: searchText)
-            .sink(
-                receiveCompletion: { _ in
-                },
-                receiveValue: { [weak self] products in
-                    self?.repositories = products.items
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    print(error)
+                    self.error = error
                 }
-            ).store(in: &cancelable)
+            } receiveValue: { [weak self] products in
+                self?.repositories = products.items
+            }
+            .store(in: &cancelable)
     }
 }
